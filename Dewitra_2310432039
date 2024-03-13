@@ -1,0 +1,30 @@
+program EmpatInput_DuaOutput;
+uses crt;
+var panjang, lebar, diameter, r, tinggi, luas_permukaan, volume_balok, volume_tabung:Real;
+
+begin
+clrscr;
+
+WriteLn('akan ditentukan luas permukaan dan volume tabung, serta volume balok dengan ciri-ciri: ');
+Write('•panjang=');
+ReadLn(panjang);
+
+Write('•lebar=');
+ReadLn(lebar);
+
+Write('•diameter=');
+ReadLn(diameter);
+
+Write('•tinggi=');
+ReadLn(tinggi);
+
+r:=1/2*diameter;
+WriteLn('r=', r);
+luas_permukaan:=2*22/7*r*(r+tinggi);
+volume_tabung:=22/7*r*r*tinggi;
+volume_balok:=panjang*lebar*tinggi;
+
+WriteLn('luas permukaan sebuah tabung adalah ', luas_permukaan);
+WriteLn('Sedangkan volume tabung yaitu ', volume_tabung);
+WriteLn('dan volume sebuah balok yaitu ', volume_balok);
+end.
