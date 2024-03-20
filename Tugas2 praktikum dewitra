@@ -1,0 +1,74 @@
+program pesan_antar_makanan_online;
+uses crt;
+var pilih, harga, total_harga, jarak, ongkos, jumlah:integer;
+nama_paket:String;
+
+begin
+clrscr;
+WriteLn('Layanan Pesan-Antar Makanan Online');
+  WriteLn();
+ 
+  writeLn('||==========================||');
+  writeLn('||  jenis paket | harga     ||');
+  writeLn('||__________________________||');
+  WriteLn('||  1. paket A  | 25.000    ||');
+  WriteLn('||  2. paket B  | 30.000    ||');
+  writeLn('||  3. paket C  | 45.000    ||');
+  writeLn('||==========================||');
+  WriteLn();
+  write('jumlah pesanan       : ');
+  ReadLn(jumlah);
+  Write('pesanan yang dipilih : ');
+  ReadLn(pilih);
+  
+  if (pilih =1) then
+  begin
+  nama_paket:='Paket A';
+  harga:=25000;
+  end
+else if (pilih=2) then
+  begin
+  nama_paket:='Paket B';
+  harga:=30000;
+  end
+else if (pilih=3) then
+  begin
+  nama_paket:='Paket C';
+  harga:=45000;
+  end
+else
+begin
+WriteLn('nama paket salah');
+end;
+writeln();
+writeLn('========================================');
+writeLn('kriteria ongkos :');
+writeLn('________________________________________');
+writeLn('kurang dari 500m   :  Rp.0 ');
+writeLn('diantara 500-1500m :  Rp.10.000');
+writeLn('lebih dari 1500m   :  Rp.20.000');
+writeLn('========================================');
+writeLn();
+Write('jarak       : ');
+ReadLn(jarak);
+if (jarak<500) then
+  begin
+  ongkos:=0;
+  end
+else if (jarak>=500) and (jarak<=1500) then
+  begin 
+  ongkos:=10000;
+  end
+else if(jarak>1500) then
+  begin
+  ongkos:=20000
+  end;
+
+WriteLn('nama paket  : ', nama_paket);
+WriteLn('harga paket : ', harga);
+WriteLn('ongkir      : ', ongkos);
+
+total_harga:=jumlah*harga+ongkos;
+WriteLn('total harga : ', total_harga);
+
+end.
