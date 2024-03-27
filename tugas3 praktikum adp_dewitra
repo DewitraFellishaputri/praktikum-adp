@@ -1,0 +1,21 @@
+program tugas_praktikum3;
+uses crt;
+var x, count:Integer;
+begin
+  clrscr;
+  count:=0;
+  for x:=1 to 80 do
+  begin
+  if (x mod 4 =0) then
+  Write('DOR ')
+  else
+  write (x, ' ');
+  inc(count);
+  
+  if count=8 then
+  begin
+  WriteLn();
+  count:=0;
+  end;
+  end;
+end.
