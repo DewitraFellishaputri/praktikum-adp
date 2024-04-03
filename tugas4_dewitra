@@ -1,0 +1,96 @@
+program tugas_praktikum_ADP4;
+uses crt;
+var gula, telur, beras, minyak, indomie, i, n:Integer;
+jumlahgula, jumlahtelur, jumlahberas, jumlahminyak, jumlahindomie:Integer;
+totalbelanja, diskon, totalharga:integer;
+barang:Char;
+begin
+clrscr;
+
+gula:=18000;
+telur:=2000;
+beras:=22000;
+minyak:=16000;
+indomie:=3500;
+  writeln;
+  WriteLn('       Toko Sembako SukaCita        ');
+  WriteLn;
+  writeln(' =========================================');
+  WriteLn(' Daftar barang-barang yang tersedia :');
+  writeln(' -----------------------------------------');
+  WriteLn(' a. gula    : Rp',gula,'/kg');
+  WriteLn(' b. telur   : Rp',telur,'/butir');
+  WriteLn(' c. beras   : Rp',beras,'/kg');
+  WriteLn(' d. minyak  : Rp',minyak,'/kg');
+  WriteLn(' e. indomie : Rp',indomie,'/pcs');
+  writeln(' =========================================');
+WriteLn;
+write('total jenis barang yang ingin dibeli : ');
+readln(n);
+writeln;
+for i:=1 to n do
+  repeat
+    Write('jenis barang yang ingin dibeli : ');
+    readln(barang);
+  case barang of
+  'A','a':
+  begin
+    write('jumlah gula yang ingin dibeli : ');
+    readln(jumlahgula);
+    writeln;
+  end;
+  'B','b':
+  begin
+    write('jumlah telur yang ingin dibeli : ');
+    readln(jumlahtelur);
+    writeln;
+  end;
+  'C','c':
+  begin
+    write('jumlah beras yang ingin dibeli : ');
+    readln(jumlahberas);
+    writeln;
+  end;
+  'D','d':
+  begin
+    write('jumlah minyak yang ingin dibeli : ');
+    readln(jumlahminyak);
+    writeln;
+  end;
+  'E','e':
+  begin
+    write('jumlah indomie yang ingin dibeli : ');
+    readln(jumlahindomie);
+    writeln;
+  end;
+  else writeln('barang tidak tersedia. Pilih barang yang ada : ');
+  end;
+  until (barang in ['A','a','B','b','C','c','D','d','E','e']);
+
+writeln('==========================================');
+totalbelanja:=(gula*jumlahgula)+(telur*jumlahtelur)+(beras*jumlahberas)+(minyak*jumlahminyak)+(indomie*jumlahindomie);
+writeln('total belanja sebelum diskon : ', totalbelanja);
+if (totalbelanja > 100000) then
+  begin
+  writeln('SELAMAT, ANDA MENDAPAT DISKON 20%');
+  diskon:=totalbelanja*20 div 100;
+  end;
+if (totalbelanja >= 50000) and (totalbelanja <=100000) then
+  begin
+  writeln('SELAMAT, ANDA MENDAPATKAN DISKON 10%');
+  diskon:=totalbelanja*10 div 100;
+  end;
+if (totalbelanja< 50000) then
+  begin
+  diskon:=0;
+  end;
+  writeln;
+  writeln('diskon yang anda dapatkan : Rp',diskon);
+  totalharga:=totalbelanja-diskon;
+  writeln('total belanja setelah diskon : Rp', totalharga);
+writeln('==========================================');
+writeln;
+writeln('==========================================');
+writeln('Terima kasih Sudah Berbelanja di Toko Kami');
+writeln('==========================================');
+end.
