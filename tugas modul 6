@@ -1,0 +1,59 @@
+n=int(input("masukkan jumlah baris dan kolom(nxn): "))
+
+print("masukkan elemen matriks A:")
+A=[]
+for i in range (n):
+    baris=[]
+    for j in range (n):
+        baris.append(int(input()))
+    A.append(baris)
+print("A=")        
+for baris in A:
+    print(baris)
+
+print("masukkan elemen matriks B:")    
+B=[]   
+for i in range (n):
+    baris=[]
+    for j in range (n):
+        baris.append(int(input()))
+    B.append(baris)
+print("B=")
+for baris in B:
+    print(baris)
+
+print("hasil perkalian matriks A dan B")
+C=[]
+for i in range (n):
+    baris=[]
+    for j in range (n):
+        entri=0
+        for k in range (n):
+            entri=entri+A[i][k]*B[k][j]
+        baris.append(entri)            
+    C.append(baris)
+print("C =")
+for baris in C:
+    print(baris)
+
+Atrans=[[A[j][i] for j in range (n)] for i in range (n)]
+Btrans=[[B[j][i] for j in range (n)] for i in range (n)]
+
+print(" hasil penjumlahan TransA dengan TransB")
+print("A Transpose=")
+for AT in Atrans:
+    print(AT)
+print("B transpose=")
+for BT in Btrans:
+    print(BT)
+    
+D=[]
+for i in range (n):
+    baris=[]
+    for j in range (n):
+        jumlah=Atrans[i][j]+Btrans[i][j]
+        baris.append(jumlah)
+    D.append(baris)
+print("D =")            
+for baris in D:
+    print(baris)
