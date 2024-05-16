@@ -1,0 +1,33 @@
+print("Keterangan :")
+print("Vt    : Kecepatan akhir")
+print("s    : Jarak")
+print("Vo    : Kecepatan awal")
+print("a    : Percepatan")
+print("t     : Waktu(dalam detik)")
+
+def Vt(Vo, a, t):
+    kec_akhir = Vo + a * t
+    return kec_akhir
+
+def s(Vo, a, t):
+    jarak = Vo * t + (1/2) * a * t**2
+    return jarak
+
+n = int(input("Masukkan jumlah n = "))
+semua_data = []
+
+for i in range(n):
+    print(f"Data ke-{i+1} :")
+    Vo = int(input("Kecepatan awal (Vo) = "))
+    a = int(input("Percepatan (a) = "))     
+    t = int(input("Waktu (t) = "))  
+    kec_akhir = Vt(Vo, a, t)
+    jarak = s(Vo, a, t)
+    semua_data.append([Vo, a, t, kec_akhir, jarak])
+
+def tabel(data):
+    print("| {:>10} | {:>10} | {:>10} | {:>10} | {:>10} |".format("Vo", "a", "t", "Vt", "s"))     
+    for baris in data:
+        print("| {:>10} | {:>10} | {:>10} | {:>10} | {:>10} |".format(baris[0], baris[1], baris[2], baris[3], baris[4]))
+
+tabel(semua_data)
