@@ -1,0 +1,171 @@
+import os
+import csv
+import time
+from termcolor import colored, cprint
+
+def bersihkan_layar():
+    os.system("cls" if os.name == "nt" else "clear")
+
+def tambah_soal(nomor, soal, jawaban):
+    with open("kumpulan_soal.txt", "a") as file:
+        file.write(f"{nomor},{soal},{jawaban}\n")
+    print(colored("Soal berhasil ditambahkan.", "light_magenta"))
+
+def edit_soal(nomor, soal, jawaban):
+    with open("kumpulan_soal.txt", "r") as file:
+        lines = file.readlines()
+    with open("kumpulan_soal.txt", "w") as file:
+        for line in lines:
+            if line.split(",")[0] == nomor:
+                file.write(f"{nomor},{soal},{jawaban}\n")
+            else:
+                file.write(line)
+    print("Soal berhasil diubah.")
+
+def tampilkan_semua_soal():
+    try:
+        with open("kumpulan_soal.txt", "r") as file:
+            kumpulan_soal = file.readlines()
+        if kumpulan_soal:
+            print("Soal yang terdata:")
+            for data in kumpulan_soal:
+                print(data.strip())
+        else:
+            print("Soal belum terdata.")
+    except FileNotFoundError:
+        print("Soal belum terdata.")
+
+def mulai_kuis():
+    nama = input("Masukkan nama Anda: ")
+    bersihkan_layar()
+    try:
+        with open("kumpulan_soal.txt", "r") as file:
+            soals = file.readlines()
+        if soals:
+            skor = 0
+            total = len(soals)
+            for soal in soals:
+                nomor, soal_text, jawaban_benar = soal.strip().split(",")
+                print(colored(f"{nomor}. {soal_text}", "light_blue"))
+                jawaban = input("Masukkan jawaban Anda: ").strip().lower()
+                if jawaban == jawaban_benar.lower():
+                    skor += 1
+                    print(colored("Jawaban benar!", "green"))
+                else:
+                    print(colored(f"Jawaban salah. Jawaban yang benar adalah {jawaban_benar}.", "red"))
+            print(colored(f"Skor akhir Anda: {skor}/{total}", "yellow"))
+            simpan_skor(nama, skor, total)
+        else:
+            print("Tidak ada soal yang tersedia.")
+    except FileNotFoundError:
+        print("Tidak ada soal yang tersedia.")
+
+def simpan_skor(nama, skor, total):
+    with open("skor_kuis.csv", "a", newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow([nama, skor, total])
+    print(colored("Skor berhasil disimpan.", "light_magenta"))
+
+def tampilkan_skor():
+    try:
+        bersihkan_layar()
+        print(colored("Daftar Skor", "cyan"))
+        print("===================")
+        with open("skor_kuis.csv", "r") as file:
+            reader = csv.reader(file)
+            scores = list(reader)
+        if scores:
+            for score in scores:
+                nama, skor, total = score
+                print(colored(f"{nama}: {skor}/{total}", "yellow"))
+        else:
+            print("Tidak ada skor yang tersedia.")
+    except FileNotFoundError:
+        print("Tidak ada skor yang tersedia.")
+                       
+def tampilkan_menu():    
+    menu = [        
+        "1. Tambahkan Soal",        
+        "2. Tampilkan Soal",       
+        "3. Edit Soal",        
+        "4. Mulai Kuis",      
+        "5. Tampilkan Skor"
+    ]
+        
+    max_length_no = 3
+    max_length_pilihan = 15
+
+    kolom_no = "No."
+    kolom_pilihan = "Pilihan Menu"
+    cprint(kolom_no + ' ' * (max_length_no - len(kolom_no)) + ' ' + kolom_pilihan + ' ' * (max_length_pilihan - len(kolom_pilihan)), 'white', 'on_blue')
+    print("=" * (max_length_no + 1 + max_length_pilihan))
+       
+    for item in menu:
+        nomor, pilihan = item.split(". ", 1)
+        nomor_padded = nomor + ' ' * (max_length_no - len(nomor))
+        pilihan_padded = pilihan + ' ' * (max_length_pilihan - len(pilihan))
+        cprint(nomor_padded + ' ' + pilihan_padded, 'white', 'on_blue')
+    
+    print("=" * (max_length_no + 1 + max_length_pilihan))
+    pilihan_user = input("Masukkan pilihan Anda: ")
+    return pilihan_user
+
+def main():
+    bersihkan_layar()
+    print(colored("===========================","light_green"))
+    time.sleep(1)
+    print(colored("   SELAMAT DATANG DI KUIS", "light_green"))
+    print(colored("===========================","light_green"))    
+    print(colored("Silahkan Pilih Menu Dibawah Ini","yellow"))
+     
+    while True:
+        time.sleep(1)
+        print()
+        pilihan = tampilkan_menu()
+        if pilihan == "1":
+                password=input("masukkan password:")
+                if password=="123":
+                    bersihkan_layar()                	
+                    nomor = input("Nomor Soal: ")
+                    soal = input("Isi Soal: ")
+                    jawaban = input("Jawaban Benar: ")
+                    tambah_soal(nomor, soal, jawaban)
+                else :
+                 	print(colored("PASSWORD SALAH","red"))
+        elif pilihan == "2":
+                password=input("masukkan password:")
+                if password=="123":   
+                    bersihkan_layar()       	
+                    tampilkan_semua_soal()
+                else:
+                	print(colored("PASSWORD SALAH","red"))            
+        elif pilihan == "3":
+                password=input("masukkan password:")
+                if password=="123":
+                    bersihkan_layar()
+                    nomor = input("Nomor Soal: ")
+                    soal = input("Isi Soal Baru: ")
+                    jawaban = input("Jawaban Benar Baru: ")
+                    edit_soal(nomor, soal, jawaban)
+                else:
+                	print(colored("PASSWORD SALAH","red"))
+        elif pilihan == "4":
+                mulai_kuis()
+        elif pilihan == "5":
+                tampilkan_skor()
+        else:
+                print(colored("Pilihan tidak valid. Silakan pilih menu yang tersedia.", "red"))
+                
+        lanjutan=input("apakah anda ingin melanjutkan program ini? (ya/tidak) : ")
+        if lanjutan=="ya":
+            print()
+            time.sleep(1)
+            print(colored("      UNTUK MELANJUTKAN","light_yellow"))
+            print(colored("SILAHKAN PILIH DIBAWAH INI!!!","light_yellow"))      
+        elif lanjutan=="tidak":
+            print(colored("Terima kasih! Sampai jumpa lagi.", "magenta"))
+            break
+        else:
+            print(colored("pilihan tidak valid","red"))       
+            
+main()
